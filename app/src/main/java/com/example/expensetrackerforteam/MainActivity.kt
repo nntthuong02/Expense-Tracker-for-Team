@@ -4,38 +4,57 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavGraph
 import com.example.expensetrackerforteam.domain.usecase.AppEntryUseCase
+import com.example.expensetrackerforteam.presentation.main.MainViewModel
+import com.example.expensetrackerforteam.presentation.navigation.MainScreen
 import com.example.expensetrackerforteam.presentation.onboarding.OnboardingScreen
 import com.example.expensetrackerforteam.presentation.onboarding.OnboardingViewModel
 import com.example.expensetrackerforteam.ui.theme.ExpenseTrackerForTeamTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@ExperimentalComposeUiApi
+@InternalCoroutinesApi
 @AndroidEntryPoint
+@ExperimentalUnitApi
+@ExperimentalFoundationApi
 class MainActivity : ComponentActivity() {
+//    @Inject
+//    lateinit var appEntryUseCase: AppEntryUseCase
     @Inject
-    lateinit var appEntryUseCase: AppEntryUseCase
+    lateinit var mainViewModel: MainViewModel
+
+    @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
-        lifecycleScope.launch {
-            appEntryUseCase.getOnboardingKeyUseCase().collect{
-                Log.d("test", it.toString())
-            }
-        }
+//        lifecycleScope.launch {
+//            appEntryUseCase.getOnboardingKeyUseCase().collect{
+//                Log.d("test", it.toString())
+//            }
+//        }
         setContent {
             ExpenseTrackerForTeamTheme {
-                val viewModel: OnboardingViewModel = hiltViewModel()
-                OnboardingScreen(
-                    onEvent = viewModel::onEvent
+//                val viewModel: OnboardingViewModel = hiltViewModel()
+                val destination by mainViewModel.startDestination.collectAsState()
+                MainScreen(
+                    startDestination = destination,
                 )
             }
         }
