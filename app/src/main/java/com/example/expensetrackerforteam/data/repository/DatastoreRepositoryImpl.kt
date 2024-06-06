@@ -39,7 +39,61 @@ class DatastoreRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun writeCurrencyToDataStore(currency: String) {
+        datastore.edit{ store ->
+            store[selectedCurrency] = currency
+        }
+    }
 
+    override suspend fun readCurrencyFromDataStore(): Flow<String> {
+        return datastore.data.map{preferences ->
+            preferences[selectedCurrency] ?: String()
+        }
+    }
+
+    override suspend fun writeExpenseLimitKeyToDataStore(amount: Double) {
+        datastore.edit{ store ->
+            store[expenseLimit] = amount
+        }
+    }
+
+    override suspend fun readExpenseLimitFromDataStore(): Flow<Double> {
+        return datastore.data.map{ preferences ->
+            preferences[expenseLimit] ?: 0.0
+        }
+    }
+
+    override suspend fun writeLimitKeyToDataStore(enabled: Boolean) {
+        datastore.edit{ store ->
+            store[limitKey] = enabled
+        }
+    }
+
+    override suspend fun readLimitKeyFromDataStore(): Flow<Boolean> {
+        return datastore.data.map{ preferences ->
+            preferences[limitKey] ?: false
+        }
+    }
+
+    override suspend fun writeLimitDurationToDataStore(duration: Int) {
+        datastore.edit { store ->
+            store[limitDuration] = duration
+        }
+    }
+
+    override suspend fun readLimitDurationFromDataStore(): Flow<Int> {
+        return datastore.data.map { preferences ->
+            preferences[limitDuration] ?: 0
+        }
+    }
+
+    override suspend fun eraseDataStore() {
+        datastore.edit { 
+            it.remove(limitKey)
+            it.remove(limitDuration)
+            it.remove(expenseLimit)
+        }
+    }
 }
 
 

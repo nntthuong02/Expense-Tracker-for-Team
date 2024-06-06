@@ -27,7 +27,7 @@ fun NavGraph(
             Text("CurrencyScreen")
         }
         composable(route = Route.HomeScreen.route) {
-            HomeScreen(navController = navController)
+            Text("HomeScreen")
         }
         composable(route = Route.TransactionScreen.route) {
             Text("TransactionScreen")

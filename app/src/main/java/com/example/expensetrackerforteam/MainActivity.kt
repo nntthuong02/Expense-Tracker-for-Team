@@ -19,6 +19,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavGraph
 import com.example.expensetrackerforteam.domain.usecase.AppEntryUseCase
+import com.example.expensetrackerforteam.domain.usecase.GetCurrencyUseCase
 import com.example.expensetrackerforteam.presentation.main.MainViewModel
 import com.example.expensetrackerforteam.presentation.navigation.MainScreen
 import com.example.expensetrackerforteam.presentation.onboarding.OnboardingScreen
@@ -38,7 +39,10 @@ class MainActivity : ComponentActivity() {
 //    @Inject
 //    lateinit var appEntryUseCase: AppEntryUseCase
     @Inject
+    lateinit var getCurrencyUseCase: GetCurrencyUseCase
+    @Inject
     lateinit var mainViewModel: MainViewModel
+
 
     @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,9 +50,13 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
 //        lifecycleScope.launch {
 //            appEntryUseCase.getOnboardingKeyUseCase().collect{
-//                Log.d("test", it.toString())
+//                Log.d("test Onboarding", it.toString())
 //            }
 //        }
+        val currencies = getCurrencyUseCase.invoke()
+        currencies.forEach {
+            Log.d("CurrencyInfo", it.toString())
+        }
         setContent {
             ExpenseTrackerForTeamTheme {
 //                val viewModel: OnboardingViewModel = hiltViewModel()
