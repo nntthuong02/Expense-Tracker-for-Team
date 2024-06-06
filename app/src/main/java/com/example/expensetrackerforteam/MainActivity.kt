@@ -18,8 +18,9 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavGraph
+import com.example.expensetrackerforteam.data.repository.DatastoreRepositoryImpl
 import com.example.expensetrackerforteam.domain.usecase.AppEntryUseCase
-import com.example.expensetrackerforteam.domain.usecase.GetCurrencyUseCase
+import com.example.expensetrackerforteam.domain.usecase.GetCurrency
 import com.example.expensetrackerforteam.presentation.main.MainViewModel
 import com.example.expensetrackerforteam.presentation.navigation.MainScreen
 import com.example.expensetrackerforteam.presentation.onboarding.OnboardingScreen
@@ -36,27 +37,30 @@ import javax.inject.Inject
 @ExperimentalUnitApi
 @ExperimentalFoundationApi
 class MainActivity : ComponentActivity() {
-//    @Inject
-//    lateinit var appEntryUseCase: AppEntryUseCase
+    /*************Test*********/
     @Inject
-    lateinit var getCurrencyUseCase: GetCurrencyUseCase
+    lateinit var appEntryUseCase: AppEntryUseCase
+//    @Inject
+//    lateinit var getCurrency: GetCurrency
+    /*************Test*********/
     @Inject
     lateinit var mainViewModel: MainViewModel
-
 
     @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
-//        lifecycleScope.launch {
-//            appEntryUseCase.getOnboardingKeyUseCase().collect{
-//                Log.d("test Onboarding", it.toString())
-//            }
-//        }
-        val currencies = getCurrencyUseCase.invoke()
-        currencies.forEach {
-            Log.d("CurrencyInfo", it.toString())
+        /*************Test*********/
+                lifecycleScope.launch {
+            appEntryUseCase.getCurrencyUseCase().collect{
+                Log.d("test UseCase", it.toString())
+            }
         }
+//        val currencies = getCurrency.invoke()
+//        currencies.forEach {
+//            Log.d("CurrencyInfo", it.toString())
+//        }
+        /*************Test*********/
         setContent {
             ExpenseTrackerForTeamTheme {
 //                val viewModel: OnboardingViewModel = hiltViewModel()

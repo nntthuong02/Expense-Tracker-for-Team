@@ -5,6 +5,7 @@ import android.content.Context
 import com.example.expensetrackerforteam.data.repository.DatastoreRepositoryImpl
 import com.example.expensetrackerforteam.domain.repository.DatastoreRepository
 import com.example.expensetrackerforteam.domain.usecase.AppEntryUseCase
+import com.example.expensetrackerforteam.domain.usecase.read_datastore.GetCurrencyUseCase
 import com.example.expensetrackerforteam.domain.usecase.read_datastore.GetOnboardingKeyUseCase
 import com.example.expensetrackerforteam.domain.usecase.write_datastore.EditOnboardingUseCase
 import dagger.Module

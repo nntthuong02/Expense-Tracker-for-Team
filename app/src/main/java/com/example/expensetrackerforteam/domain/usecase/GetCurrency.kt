@@ -5,24 +5,23 @@ import java.util.Currency
 import java.util.Locale
 import javax.inject.Inject
 
-class GetCurrencyUseCase @Inject constructor() {
+class GetCurrency @Inject constructor() {
     operator fun invoke(): List<CurrencyModel> {
-        val currencies = mutableListOf<CurrencyModel>()
-        val countries = mutableListOf<String>()
+        val currencies = mutableSetOf<CurrencyModel>()
+        val countries = mutableSetOf<String>()
         val allLocale = Locale.getAvailableLocales()
 
         allLocale.forEach { locale ->
             val countryName = locale.displayCountry
             try {
-                val currencyCode = Currency.getInstance(locale).currencyCode
-                val currency = Currency.getInstance(currencyCode)
-                val currencySymbol = currency.getSymbol(locale)
+                val currency = Currency.getInstance(locale)
+                val currencyCode = currency.currencyCode
+                val currencySymbol = currency.symbol
 
                 val currencyModel = CurrencyModel(countryName, currencyCode, currencySymbol)
-                if (countryName.trim().isNotEmpty() && !countries.contains(countryName)) {
-                    countries.add(countryName)
-                    currencies.add(currencyModel)
-                }
+                countries.add(countryName)
+                currencies.add(currencyModel)
+
             } catch (e: Exception) { }
         }
         return currencies.sortedBy { it.country }
