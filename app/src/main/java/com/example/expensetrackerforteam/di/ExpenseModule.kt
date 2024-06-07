@@ -2,11 +2,17 @@ package com.example.expensetrackerforteam.di
 
 import android.app.Application
 import android.content.Context
+import androidx.room.Room
+import com.example.expensetrackerforteam.data.TransactionDao
+import com.example.expensetrackerforteam.data.TransactionDatabase
 import com.example.expensetrackerforteam.data.repository.DatastoreRepositoryImpl
+import com.example.expensetrackerforteam.data.repository.TransactionRepositoryImpl
 import com.example.expensetrackerforteam.domain.repository.DatastoreRepository
+import com.example.expensetrackerforteam.domain.repository.TransactionRepository
 import com.example.expensetrackerforteam.domain.usecase.AppEntryUseCase
 import com.example.expensetrackerforteam.domain.usecase.read_datastore.GetCurrencyUseCase
 import com.example.expensetrackerforteam.domain.usecase.read_datastore.GetOnboardingKeyUseCase
+import com.example.expensetrackerforteam.domain.usecase.write_datastore.EditCurrencyUseCase
 import com.example.expensetrackerforteam.domain.usecase.write_datastore.EditOnboardingUseCase
 import dagger.Module
 import dagger.Provides
@@ -23,9 +29,22 @@ object ExpenseModule {
     @Provides
     @Singleton
     fun provideDatastoreRepository(
-        application: Application
+        applicaion: Application
     ) : DatastoreRepository {
-        return DatastoreRepositoryImpl(application)
+        return DatastoreRepositoryImpl(applicaion)
+    }
+
+    @Provides
+    @Singleton
+    fun provideExpenseRepository(transactionDao: TransactionDao) : TransactionRepository
+            = TransactionRepositoryImpl(transactionDao)
+
+    @Provides
+    @Singleton
+    fun provideTransactioDatabase(context: Context): TransactionDatabase{
+        return Room.databaseBuilder(context, TransactionDatabase::class.java, "transactionDb")
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     //Test
@@ -35,6 +54,9 @@ object ExpenseModule {
         datastoreRepository: DatastoreRepository
     ) = AppEntryUseCase(
             getOnboardingKeyUseCase = GetOnboardingKeyUseCase(datastoreRepository),
-            editOnboardingUseCase = EditOnboardingUseCase(datastoreRepository)
+            editOnboardingUseCase = EditOnboardingUseCase(datastoreRepository),
+            editCurrencyUseCase = EditCurrencyUseCase(datastoreRepository)
         )
+
+
 }

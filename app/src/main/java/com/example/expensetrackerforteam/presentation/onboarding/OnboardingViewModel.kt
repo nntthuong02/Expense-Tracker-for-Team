@@ -17,18 +17,18 @@ class OnboardingViewModel @Inject constructor(
 //            editOnboardingUseCase(completed = completed)
 //        }
 //    }
-    fun onEvent(event: OnboardingEvent){
-        when(event){
-            is OnboardingEvent.EditOnboardingUseCase ->{
-                saveOnBoardingState(true)
-            }
-        }
-    }
-
-    private fun saveOnBoardingState(completed: Boolean) {
-        viewModelScope.launch {
-            editOnboardingUseCase(completed = completed)
-        }
-    }
+//    fun onEvent(event: OnboardingEvent){
+//        when(event){
+//            is OnboardingEvent.EditOnboardingUseCase ->{
+//                saveOnBoardingState(true)
+//            }
+//        }
+//    }
+//
+//    private fun saveOnBoardingState(completed: Boolean) {
+//        viewModelScope.launch {
+//            editOnboardingUseCase(completed = completed)
+//        }
+//    }
 
 }

@@ -1,6 +1,8 @@
 package com.example.expensetrackerforteam.presentation.navigation
 
 sealed class Route(val route: String) {
+
+    object OnboardingScreen: Route("onboarding")
     object WelcomeScreen: Route("welcome")
     object CurrencyScreen: Route("currency")
     object HomeScreen: Route("home")

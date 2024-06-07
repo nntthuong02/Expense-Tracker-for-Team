@@ -51,11 +51,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         installSplashScreen()
         /*************Test*********/
-                lifecycleScope.launch {
-            appEntryUseCase.getCurrencyUseCase().collect{
-                Log.d("test UseCase", it.toString())
-            }
-        }
+//        lifecycleScope.launch {
+//            appEntryUseCase.getOnboardingKeyUseCase().collect{
+//                Log.d("test UseCase", it.toString())
+//            }
+//        }
 //        val currencies = getCurrency.invoke()
 //        currencies.forEach {
 //            Log.d("CurrencyInfo", it.toString())

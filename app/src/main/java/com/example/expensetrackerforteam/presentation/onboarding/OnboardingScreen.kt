@@ -25,15 +25,17 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.expensetrackerforteam.presentation.common.ExButton
 import com.example.expensetrackerforteam.presentation.common.ExTextButton
+import com.example.expensetrackerforteam.presentation.navigation.Route
 import com.example.expensetrackerforteam.presentation.onboarding.components.OnboardingPage
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun OnboardingScreen(
-    onEvent: (OnboardingEvent) -> Unit
+    navController: NavController
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         val pagerState = rememberPagerState(pageCount = {
@@ -108,7 +110,8 @@ fun OnboardingScreen(
                     onClick = {
                         scope.launch {
                             if (pagerState.currentPage == 2) {
-                                onEvent(OnboardingEvent.EditOnboardingUseCase)
+                                navController.popBackStack()
+                                navController.navigate("${Route.CurrencyScreen.route}/${false}")
                             } else {
                                 pagerState.animateScrollToPage(
                                     page = pagerState.currentPage + 1

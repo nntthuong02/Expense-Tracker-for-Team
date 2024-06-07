@@ -16,8 +16,8 @@ class MainViewModel @Inject constructor(
     private val getOnBoardingKeyUseCase: GetOnboardingKeyUseCase
 ) : ViewModel() {
 
-    var isLoading = MutableStateFlow(true)
-        private set
+//    var isLoading = MutableStateFlow(true)
+//        private set
 
     var startDestination = MutableStateFlow(Route.WelcomeScreen.route)
         private set
@@ -27,9 +27,9 @@ class MainViewModel @Inject constructor(
             getOnBoardingKeyUseCase().collect { completed ->
                 if (completed)
                     startDestination.value = Route.HomeScreen.route
+                else startDestination.value = Route.OnboardingScreen.route
             }
 
-            isLoading.value = false
         }
     }
 }

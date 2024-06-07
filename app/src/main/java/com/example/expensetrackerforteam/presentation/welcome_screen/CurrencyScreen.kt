@@ -1,5 +1,6 @@
 package com.example.expensetrackerforteam.presentation.welcome_screen
 
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -14,4 +15,5 @@ fun CurrencyScreen(
     navController: NavController,
     setting: Boolean?,
 ) {
+    Text("CurrencyScreen")
 }
