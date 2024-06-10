@@ -7,6 +7,7 @@ buildscript {
         set("nav_version", "2.7.7")
         set("lifecycle_version", "2.7.0")
         set("paging_version", "3.3.0")
+        set("appcompat_version", "1.7.0")
     }
     repositories {
         google()

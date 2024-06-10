@@ -111,7 +111,7 @@ fun OnboardingScreen(
                         scope.launch {
                             if (pagerState.currentPage == 2) {
                                 navController.popBackStack()
-                                navController.navigate("${Route.CurrencyScreen.route}/${false}")
+                                navController.navigate("${Route.CurrencyScreen.route}")
                             } else {
                                 pagerState.animateScrollToPage(
                                     page = pagerState.currentPage + 1

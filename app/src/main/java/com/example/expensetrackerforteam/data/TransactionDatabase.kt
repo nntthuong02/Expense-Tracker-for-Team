@@ -12,7 +12,7 @@ import com.example.expensetrackerforteam.data.local.entity.TransactionDto
 @TypeConverters(DateConverter::class)
 @Database(entities = [TransactionDto::class, ParticipantDto::class], version = 1, exportSchema = true)
 abstract class TransactionDatabase: RoomDatabase(){
-    abstract val transactionDao: TransactionDao
+    abstract fun transactionDao(): TransactionDao
 
 //    companion object {
 //        @Volatile

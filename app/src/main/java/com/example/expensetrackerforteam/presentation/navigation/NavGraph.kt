@@ -9,9 +9,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.expensetrackerforteam.presentation.home_screen.HomeScreen
 import com.example.expensetrackerforteam.presentation.onboarding.OnboardingScreen
 import com.example.expensetrackerforteam.presentation.onboarding.OnboardingViewModel
+import com.example.expensetrackerforteam.presentation.welcome_screen.CurrencyScreen
 import com.example.expensetrackerforteam.presentation.welcome_screen.WelcomeScreen
 
 @ExperimentalFoundationApi
@@ -30,8 +32,8 @@ fun NavGraph(
         composable(route = Route.WelcomeScreen.route) {
             Text("WelcomeScreen")
         }
-        composable(route = "${Route.CurrencyScreen.route}/{setting}") {
-            Text("CurrencyScreen")
+        composable(route = "${Route.CurrencyScreen.route}") {
+            CurrencyScreen(navController = rememberNavController(), setting = true)
         }
         composable(route = Route.HomeScreen.route) {
             Text("HomeScreen")

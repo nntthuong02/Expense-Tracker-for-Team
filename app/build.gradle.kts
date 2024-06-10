@@ -111,10 +111,13 @@ dependencies {
     //Paging
     implementation("androidx.paging:paging-runtime:${rootProject.extra["paging_version"]}")
     implementation("androidx.paging:paging-compose:3.3.0")
-    //appcompact
-//    implementation("androidx.appcompat:appcompat:${rootProject.extra["appcompat_version"]}")
-//    // For loading and tinting drawables on older versions of the platform
-//    implementation("androidx.appcompat:appcompat-resources:${rootProject.extra["appcompat_version"]}")
+//    appcompact
+    //fix Cannot resolve symbol '?attr/colorControlNormal'
+    implementation("androidx.appcompat:appcompat:${rootProject.extra["appcompat_version"]}")
+    //
+
+    // For loading and tinting drawables on older versions of the platform
+    implementation("androidx.appcompat:appcompat-resources:${rootProject.extra["appcompat_version"]}")
 //    //material
 ////    implementation ("com.google.android.material:material3:1.2.1")
 //    implementation ("com.google.android.material:material:1.12.0")
