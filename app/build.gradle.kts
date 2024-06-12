@@ -87,6 +87,8 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     /************************************/
+//    implementation("androidx.compose.ui:ui:${rootProject.extra["ui_version"]}")
+//    implementation("androidx.compose.foundation:foundation:1.6.7")
     //Splash Screen
     implementation("androidx.core:core-splashscreen:1.0.0")
     //Room

@@ -61,7 +61,6 @@ import kotlinx.coroutines.launch
 @Composable
 fun CurrencyScreen(
     navController: NavController,
-    setting: Boolean?,
     welcomeViewModel: WelcomeViewModel = hiltViewModel()
 ) {
     val currencies by welcomeViewModel.countryCurrencies
@@ -264,5 +263,5 @@ fun CurrencyHeader(){
 @Preview(showBackground = true)
 @Composable
 fun CurrencyPreview(){
-    CurrencyScreen(navController = rememberNavController(), setting = false)
+    CurrencyScreen(navController = rememberNavController())
 }
