@@ -25,7 +25,9 @@ import com.example.expensetrackerforteam.R
 
 
 @Composable
-fun ParticipantTag(participantName: ParticipantName, homeViewModel: HomeViewModel = hiltViewModel()) {
+fun ParticipantTag(
+    participantName: ParticipantName, homeViewModel: HomeViewModel = hiltViewModel()
+) {
     val selectedParticipant by homeViewModel.participant.collectAsState()
     val isSelected = selectedParticipant == participantName
 

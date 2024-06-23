@@ -91,6 +91,10 @@ dependencies {
     implementation("androidx.compose.ui:ui:${rootProject.extra["ui_version"]}")
 //    implementation("androidx.compose.material3:material3-android:1.2.1")
 //    implementation("androidx.compose.foundation:foundation:1.6.7")
+    //Constraintlayout
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    // To use constraintlayout in compose
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
     //Splash Screen
     implementation("androidx.core:core-splashscreen:1.0.0")
     //Room
