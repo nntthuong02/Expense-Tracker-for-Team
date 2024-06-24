@@ -99,6 +99,6 @@ fun TabButtonPreview() {
     TabButton(
         TabButton.values(),
         onButtonClick = { },
-        homeViewModel = HomeViewModel()
+//        homeViewModel = HomeViewModel()
     )
 }

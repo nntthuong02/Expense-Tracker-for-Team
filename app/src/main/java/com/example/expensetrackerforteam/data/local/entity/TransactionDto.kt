@@ -8,7 +8,7 @@ import java.util.Date
 
 @Entity(tableName = "transaction_table")
 data class TransactionDto(
-    @PrimaryKey
+    @PrimaryKey()
     @ColumnInfo(name = "timestamp")
     val date: Date,
     @ColumnInfo(name = "entry_date")

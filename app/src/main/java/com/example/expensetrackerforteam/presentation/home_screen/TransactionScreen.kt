@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -34,12 +35,15 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.expensetrackerforteam.common.Constants
 import com.example.expensetrackerforteam.common.ParticipantName
 import com.example.expensetrackerforteam.common.TransactionType
 import com.example.expensetrackerforteam.presentation.home_screen.components.AddTransactionChooser
 import com.example.expensetrackerforteam.presentation.home_screen.components.Category
 import com.example.expensetrackerforteam.presentation.home_screen.components.InfoBanner
 import com.example.expensetrackerforteam.presentation.home_screen.components.ParticipantTag
+import com.example.expensetrackerforteam.presentation.navigation.Route
+import java.util.Calendar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -176,6 +180,46 @@ fun TransactionScreen(
             text = "Set category"
         )
         Category()
+        Button(
+            onClick = {
+                      homeViewModel.apply {
+                          setCurrentTime(Calendar.getInstance().time)
+                          if(transactionType == TransactionType.INCOME){
+                              insertNewTransaction(
+                                  date.value,
+                                  transactionAmount.value.toDouble(),
+                                  category.value.title,
+                                  Constants.INCOME,
+                                  transactionTitle.value
+
+                              ){
+                                  Log.d("test income transaction", "income success")
+                                  navController.navigateUp()
+//                                  navController.navigate("${Route.HomeScreen.route}")
+                              }
+                          } else {
+                              insertNewTransaction(
+                                  date.value,
+                                  transactionAmount.value.toDouble(),
+                                  category.value.title,
+                                  Constants.EXPENSE, transactionTitle.value
+                              ) {
+                                  Log.d("test expense transaction", "expense success")
+                                  navController.navigateUp()
+//                                  navController.navigate("${Route.HomeScreen.route}")
+                              }
+                          }
+                      }
+//                navController.navigate("${Route.HomeScreen.route}")
+                //xu ly xoa het du lieu dang hien thi sau khi nhan "Save"
+            },
+            shape = MaterialTheme.shapes.small,
+            modifier = Modifier.fillMaxWidth()
+                .padding(16.dp)
+                .align(Alignment.CenterHorizontally)
+        ) {
+            Text(text = "Save")
+        }
     }
 
 }
