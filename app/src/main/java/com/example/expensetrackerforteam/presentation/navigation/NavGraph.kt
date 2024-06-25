@@ -7,12 +7,16 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.expensetrackerforteam.presentation.home_screen.HomeScreen
 import com.example.expensetrackerforteam.presentation.onboarding.OnboardingScreen
 import com.example.expensetrackerforteam.presentation.onboarding.OnboardingViewModel
+import com.example.expensetrackerforteam.presentation.participant_screen.ParticipantDetailScreen
+import com.example.expensetrackerforteam.presentation.participant_screen.ParticipantScreen
 import com.example.expensetrackerforteam.presentation.welcome_screen.CurrencyScreen
 
 
@@ -32,7 +36,7 @@ fun NavGraph(
 //        composable(route = Route.WelcomeScreen.route) {
 //            Text("WelcomeScreen")
 //        }
-        composable(route = "${Route.CurrencyScreen.route}") {
+        composable(route = Route.CurrencyScreen.route) {
             CurrencyScreen(navController = rememberNavController())
         }
         composable(route = Route.HomeScreen.route) {
@@ -45,12 +49,20 @@ fun NavGraph(
             Text("InsightScreen")
         }
         composable(route = Route.ParticipantScreen.route) {
-            Text("ParticipantScreen")
+            ParticipantScreen(navController = navController)
         }
         composable(
             route = "${Route.ParticipantDetailScreen.route}/{participantName}",
-        ) {
-            Text("ParticipantDetailScreen")
+            arguments = listOf(
+                navArgument("participantName"){
+                    type = NavType.StringType
+                    defaultValue = "Thuong"
+                    nullable = true
+                }
+            )
+        ) { entry ->
+            //sai ten paticipantName
+            ParticipantDetailScreen(entry.arguments?.getString("participantName"))
         }
         composable(route = Route.SettingScreen.route) {
             Text("SettingScreen")
