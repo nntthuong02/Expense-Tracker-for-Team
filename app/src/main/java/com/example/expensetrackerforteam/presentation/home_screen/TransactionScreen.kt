@@ -153,9 +153,8 @@ fun TransactionScreen(
         TextField(
             value = numberFieldValue.text,
             onValueChange = { field ->
-                Log.d("Test", "field ok")
+                Log.d("Test", "field number ok")
                 homeViewModel.setNumberOfTeam(field)
-                Log.d("test", "setTransaction Ok")
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -259,6 +258,7 @@ fun TransactionScreen(
                       }
                 homeViewModel.setTransactionTitle("")
                 homeViewModel.setTransaction("")
+                homeViewModel.setNumberOfTeam("")
 //                navController.navigate("${Route.HomeScreen.route}")
                 //xu ly xoa het du lieu dang hien thi sau khi nhan "Save"
             },

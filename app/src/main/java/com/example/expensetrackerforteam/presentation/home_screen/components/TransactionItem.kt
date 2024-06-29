@@ -111,7 +111,12 @@ fun TransactionItem(
             }
 
             Spacer(modifier = Modifier.height(10.dp))
-
+            Text(
+                text = "Number of Team: " + transaction.numberOfTeam.toString(),
+                style = MaterialTheme.typography.titleMedium,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically,
