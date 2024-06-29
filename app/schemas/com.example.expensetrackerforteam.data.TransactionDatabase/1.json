@@ -2,12 +2,18 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "75d8eda0e1d2a65484c190c1f00b6793",
+    "identityHash": "9d76566a839ad2daffc2401ac9efafd1",
     "entities": [
       {
         "tableName": "transaction_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`timestamp` INTEGER NOT NULL, `entry_date` TEXT NOT NULL, `amount` REAL NOT NULL, `participant` TEXT NOT NULL, `category` TEXT NOT NULL, `transaction_type` TEXT NOT NULL, `transaction_title` TEXT NOT NULL, PRIMARY KEY(`timestamp`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `timestamp` INTEGER NOT NULL, `entry_date` TEXT NOT NULL, `amount` REAL NOT NULL, `participant` TEXT NOT NULL, `category` TEXT NOT NULL, `transaction_type` TEXT NOT NULL, `transaction_title` TEXT NOT NULL, `number_of_team` INTEGER NOT NULL, `is_paid` INTEGER NOT NULL)",
         "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
           {
             "fieldPath": "date",
             "columnName": "timestamp",
@@ -49,12 +55,24 @@
             "columnName": "transaction_title",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "numberOfTeam",
+            "columnName": "number_of_team",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isPaid",
+            "columnName": "is_paid",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
-          "autoGenerate": false,
+          "autoGenerate": true,
           "columnNames": [
-            "timestamp"
+            "_id"
           ]
         },
         "indices": [],
@@ -108,7 +126,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '75d8eda0e1d2a65484c190c1f00b6793')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9d76566a839ad2daffc2401ac9efafd1')"
     ]
   }
 }

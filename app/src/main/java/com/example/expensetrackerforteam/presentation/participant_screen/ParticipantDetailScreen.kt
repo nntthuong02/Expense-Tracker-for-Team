@@ -43,7 +43,7 @@ fun ParticipantDetailScreen(participantName: String?, participantViewModel: Part
     ) {
         transactions.ifEmpty {
             Text(text = "Not Transaction")
-            Log.d("test transactions", "ifEmpty")
+            Log.d("test transactions", "isEmpty")
         }
 
         LazyColumn(

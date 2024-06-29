@@ -185,7 +185,9 @@ fun TransactionItemPreview(){
         participant = "Quan",
         title = "Grocery shopping",
         amount = 50.0,
-        transactionType = Constants.EXPENSE
+        transactionType = Constants.EXPENSE,
+        numberOfTeam = 1,
+        isPaid = false
     )
     TransactionItem(
         transaction = transaction,

@@ -63,6 +63,10 @@ class HomeViewModel @Inject constructor(
         private set
     var transactionAmount = MutableStateFlow(String())
         private set
+    var numberOfTeamT = MutableStateFlow(String())
+        private set
+    var isPaidT = MutableStateFlow(false)
+        private set
     var tabTransaction = MutableStateFlow(TabTransaction.INCOME_TAB)
 //    fun String.amountFormat(): String {
 //        val amountFormatter = DecimalFormat("#,##0.00")
@@ -101,21 +105,30 @@ class HomeViewModel @Inject constructor(
     fun setTransaction(amount: String) {
         transactionAmount.value = amount
     }
+    fun setNumberOfTeam(number: String){
+        numberOfTeamT.value = number
+    }
+    fun setIsPaid(isPaid: Boolean){
+        isPaidT.value = isPaid
+    }
 
     data class TransactionUiState(
         val transactionDetails : Transaction = Transaction(
-            Date(), "", 0.0, "", "", "", ""
+            Date(), "", 0.0, "", "", "", "", 0, false
         ),
         val isEntryValid: Boolean = false
     )
     fun Transaction.toTransactionDto(): TransactionDto = TransactionDto(
+        id = 0,
         date = date,
         dateOfEntry = dateOfEntry,
         amount = amount,
         participant = participant,
         category = category,
         transactionType = transactionType,
-        title = title
+        title = title,
+        numberOfTeam = numberOfTeam,
+        isPaid = isPaid
     )
     fun setCurrentTime(time: Date) {
         currentTime.value = time
@@ -127,6 +140,8 @@ class HomeViewModel @Inject constructor(
         category: String,
         transactionType: String,
         transactionTitle: String,
+        numberOfTeam: Int,
+        isPaid: Boolean,
         navigateBack: () -> Unit
     ) {
         viewModelScope.launch(IO) {
@@ -138,13 +153,16 @@ class HomeViewModel @Inject constructor(
             }
 
             val newTransaction = TransactionDto(
+                id = 0,
                 currentTime.value,
                 date,
                 amount,
                 participant.value.title,
                 category,
                 transactionType,
-                transactionTitle
+                transactionTitle,
+                numberOfTeam,
+                isPaid
             )
             insertNewTransactionUseCase(newTransaction)
 
@@ -179,7 +197,4 @@ class HomeViewModel @Inject constructor(
             }
         }
     }
-
-
-
 }

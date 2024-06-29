@@ -8,7 +8,9 @@ import java.util.Date
 
 @Entity(tableName = "transaction_table")
 data class TransactionDto(
-    @PrimaryKey()
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "_id")
+    val id: Int,
     @ColumnInfo(name = "timestamp")
     val date: Date,
     @ColumnInfo(name = "entry_date")
@@ -22,7 +24,11 @@ data class TransactionDto(
     @ColumnInfo(name = "transaction_type")
     val transactionType: String,
     @ColumnInfo(name = "transaction_title")
-    val title: String
+    val title: String,
+    @ColumnInfo(name = "number_of_team")
+    val numberOfTeam: Int,
+    @ColumnInfo(name = "is_paid")
+    val isPaid: Boolean
 ) {
-    fun toTransaction() = Transaction(date, dateOfEntry, amount, participant, category, transactionType, title)
+    fun toTransaction() = Transaction(date, dateOfEntry, amount, participant, category, transactionType, title, numberOfTeam, isPaid)
 }

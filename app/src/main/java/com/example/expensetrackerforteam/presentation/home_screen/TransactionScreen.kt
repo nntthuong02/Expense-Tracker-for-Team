@@ -1,6 +1,8 @@
 package com.example.expensetrackerforteam.presentation.home_screen
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -37,6 +39,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.expensetrackerforteam.common.Constants
 import com.example.expensetrackerforteam.common.ParticipantName
+import com.example.expensetrackerforteam.common.TabTransaction
 import com.example.expensetrackerforteam.common.TransactionType
 import com.example.expensetrackerforteam.presentation.home_screen.components.AddTransactionChooser
 import com.example.expensetrackerforteam.presentation.home_screen.components.Category
@@ -55,7 +58,7 @@ fun TransactionScreen(
     transactionStatus: Int?,
     homeViewModel: HomeViewModel = hiltViewModel()
 ) {
-
+    val selectedTransaction by homeViewModel.tabTransaction.collectAsState()
     val transactionType = TransactionType.values()[transactionTag!!]
     val scope = rememberCoroutineScope()
     val title by remember { mutableStateOf(homeViewModel.transactionTitle) }
@@ -65,6 +68,9 @@ fun TransactionScreen(
     val transactionFieldValue = TextFieldValue(transaction.collectAsState().value)
     val expenseAmount by homeViewModel.transactionAmount.collectAsState()
     val currencyCode by homeViewModel.selectedCurrencyCode.collectAsState()
+    val number by remember { mutableStateOf(homeViewModel.numberOfTeamT) }
+    val numberFieldValue = TextFieldValue(number.collectAsState().value)
+    val isPaid by remember { mutableStateOf(homeViewModel.isPaidT) }
     //
     val selectedParticipantName by homeViewModel.participant.collectAsState()
     val participantList: Array<ParticipantName> = ParticipantName.values()
@@ -90,9 +96,10 @@ fun TransactionScreen(
                 ),
             maxLines = 1,
             singleLine = true,
+
             placeholder = {
                 Text(
-                    text = if (transactionType == TransactionType.INCOME)
+                    text = if (selectedTransaction == TabTransaction.INCOME_TAB)
                         "Income title"
                     else "Expense title",
                     style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W600)
@@ -105,9 +112,9 @@ fun TransactionScreen(
                 containerColor = Color.LightGray
             )
         )
-
+        Log.d("Test TransactionType", "$selectedTransaction")
         Text(
-            text = if (transactionType == TransactionType.INCOME) {
+            text = if (selectedTransaction == TabTransaction.INCOME_TAB) {
                 "Income of"
             } else "Expense of",
             style = MaterialTheme.typography.labelLarge,
@@ -141,6 +148,42 @@ fun TransactionScreen(
                 ParticipantTag(participantName = participant)
             }
         }
+
+        //Number of team
+        TextField(
+            value = numberFieldValue.text,
+            onValueChange = { field ->
+                Log.d("Test", "field ok")
+                homeViewModel.setNumberOfTeam(field)
+                Log.d("test", "setTransaction Ok")
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    start = 5.dp,
+                    top = 5.dp,
+                    end = 5.dp,
+                    bottom = 5.dp
+                ),
+            maxLines = 1,
+            singleLine = true,
+            placeholder = {
+                Text(
+                    text = "Enter the number of Team"
+                )
+            },
+            textStyle = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W600),
+            colors = TextFieldDefaults.textFieldColors(
+                focusedIndicatorColor = MaterialTheme.colorScheme.primary,
+                cursorColor = MaterialTheme.colorScheme.primary,
+                containerColor = Color.LightGray
+            ),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Done
+            ),
+        )
+        //
         //Transaction amount
         TextField(
             value = transactionFieldValue.text,
@@ -190,8 +233,9 @@ fun TransactionScreen(
                                   transactionAmount.value.toDouble(),
                                   category.value.title,
                                   Constants.INCOME,
-                                  transactionTitle.value
-
+                                  transactionTitle.value,
+                                  numberOfTeamT.value.toInt(),
+                                  isPaidT.value
                               ){
                                   Log.d("test income transaction", "income success")
                                   navController.navigateUp()
@@ -202,7 +246,10 @@ fun TransactionScreen(
                                   date.value,
                                   transactionAmount.value.toDouble(),
                                   category.value.title,
-                                  Constants.EXPENSE, transactionTitle.value
+                                  Constants.EXPENSE,
+                                  transactionTitle.value,
+                                  numberOfTeamT.value.toInt(),
+                                  isPaidT.value
                               ) {
                                   Log.d("test expense transaction", "expense success")
                                   navController.navigateUp()
@@ -210,18 +257,26 @@ fun TransactionScreen(
                               }
                           }
                       }
+                homeViewModel.setTransactionTitle("")
+                homeViewModel.setTransaction("")
 //                navController.navigate("${Route.HomeScreen.route}")
                 //xu ly xoa het du lieu dang hien thi sau khi nhan "Save"
             },
             shape = MaterialTheme.shapes.small,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(16.dp)
                 .align(Alignment.CenterHorizontally)
         ) {
+
             Text(text = "Save")
         }
     }
 
+}
+
+fun showToast(context: Context?, message: String) {
+    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 }
 
 @Preview(showSystemUi = true)

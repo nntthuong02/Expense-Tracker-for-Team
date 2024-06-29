@@ -3,6 +3,7 @@ package com.example.expensetrackerforteam
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -26,6 +27,7 @@ import androidx.navigation.NavGraph
 import com.example.expensetrackerforteam.data.repository.DatastoreRepositoryImpl
 import com.example.expensetrackerforteam.domain.usecase.AppEntryUseCase
 import com.example.expensetrackerforteam.domain.usecase.GetCurrency
+import com.example.expensetrackerforteam.presentation.home_screen.HomeViewModel
 import com.example.expensetrackerforteam.presentation.main.MainViewModel
 import com.example.expensetrackerforteam.presentation.navigation.MainScreen
 import com.example.expensetrackerforteam.presentation.onboarding.OnboardingScreen
@@ -52,7 +54,6 @@ class MainActivity : ComponentActivity() {
     /*************Test*********/
     @Inject
     lateinit var mainViewModel: MainViewModel
-
     @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,6 +85,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {

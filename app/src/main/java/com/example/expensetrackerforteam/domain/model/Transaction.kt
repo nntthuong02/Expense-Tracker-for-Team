@@ -10,4 +10,6 @@ data class Transaction(
     val category: String,
     val transactionType: String,
     val title: String,
+    val numberOfTeam: Int,
+    val isPaid: Boolean
 )
